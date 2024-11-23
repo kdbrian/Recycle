@@ -1,0 +1,48 @@
+name : Android gradle build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+
+      - name: Setup JDK(11)
+        uses: actions/setup-java@v3
+
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+
+      - name: Cache gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            
+          key: ${{ runner.os }}-gradle-${{hashFiles('**/*', '**/gradle-wrapper-properties')}}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Give execute permissions to gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build project
+        run: ./gradlew build
+
+

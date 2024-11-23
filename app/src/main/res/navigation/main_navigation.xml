@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/onBoardingScreen2">
+
+    <fragment
+        android:id="@+id/homeScreen"
+        tools:layout="@layout/home_screen"
+        android:name="io.github.junrdev.recycle.features.home.screens.HomeScreen"
+        android:label="HomeScreen" >
+        <action
+            android:id="@+id/action_homeScreen_to_scannerScreen"
+            app:destination="@id/scannerScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingScreen2"
+        android:name="io.github.junrdev.recycle.features.auth.presentation.screens.OnBoardingScreen"
+        android:label="OnBoardingScreen" >
+        <action
+            android:id="@+id/action_onBoardingScreen2_to_enterAccountInfo2"
+            app:destination="@id/enterAccountInfo2" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterAccountInfo2"
+        android:name="io.github.junrdev.recycle.features.auth.presentation.screens.EnterAccountInfo"
+        android:label="EnterAccountInfo" >
+        <action
+            android:id="@+id/action_enterAccountInfo2_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <dialog
+        android:id="@+id/scannerScreen"
+        android:name="io.github.junrdev.recycle.features.recycler.presentation.ScannerScreen"
+        android:label="ScannerScreen" />
+</navigation>
