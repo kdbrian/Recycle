@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="errorColor">#FFF50057</color>
+    <color name="plasticWasteColor">#FFD5FFF3</color>
+    <color name="metallicWasteColor">#FFADCAD6</color>
+    <color name="glassWasteColor">#FF1B1B1E</color>
+
+
+    <color name="goal_3">#FF2C9B48</color>
+    <color name="goal_4">#FFC21F33</color>
+    <color name="goal_6">#FF01AED9</color>
+    <color name="goal_12">#FFCF8D2A</color>
+    <color name="goal_14">#FF007DBC</color>
+    <color name="goal_17">#FF183668</color>
+
+</resources>

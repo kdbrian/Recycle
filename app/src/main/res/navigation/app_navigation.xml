@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/onBoardingScreen">
+
+    <fragment
+        android:id="@+id/onBoardingScreen"
+        android:name="io.github.junrdev.recycler.features.auth.onboarding.OnBoardingScreen"
+        android:label="fragment_on_boarding_screen"
+        tools:layout="@layout/fragment_on_boarding_screen" >
+        <action
+            android:id="@+id/action_onBoardingScreen_to_promptAuthScreen"
+            app:destination="@id/promptAuthScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/promptAuthScreen"
+        android:name="io.github.junrdev.recycler.features.auth.login_register.PromptAuthScreen"
+        android:label="fragment_prompt_auth_screen"
+        tools:layout="@layout/fragment_prompt_auth_screen" >
+        <action
+            android:id="@+id/action_promptAuthScreen_to_emailLoginRegister"
+            app:destination="@id/emailLoginRegister" />
+        <action
+            android:id="@+id/action_promptAuthScreen_to_phoneNumberLoginRegister"
+            app:destination="@id/phoneNumberLoginRegister" />
+        <action
+            android:id="@+id/action_promptAuthScreen_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <dialog
+        android:id="@+id/emailLoginRegister"
+        android:name="io.github.junrdev.recycler.features.auth.login_register.EmailLoginRegister"
+        android:label="fragment_email_login_register"
+        tools:layout="@layout/fragment_email_login_register" />
+    <dialog
+        android:id="@+id/phoneNumberLoginRegister"
+        android:name="io.github.junrdev.recycler.features.auth.login_register.PhoneNumberLoginRegister"
+        android:label="fragment_phone_number_login_register"
+        tools:layout="@layout/fragment_phone_number_login_register" />
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="io.github.junrdev.recycler.features.home.HomeScreen"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreen_to_scanScreen"
+            app:destination="@id/scanScreen" />
+        <action
+            android:id="@+id/action_homeScreen_to_allBlogsScreen"
+            app:destination="@id/allBlogsScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanScreen"
+        android:name="io.github.junrdev.recycler.features.recycle.ScanScreen"
+        android:label="fragment_scan_screen"
+        tools:layout="@layout/fragment_scan_screen" />
+    <fragment
+        android:id="@+id/allBlogsScreen"
+        android:name="io.github.junrdev.recycler.features.blog.AllBlogsScreen"
+        android:label="fragment_all_blogs_screen"
+        tools:layout="@layout/fragment_all_blogs_screen" >
+        <action
+            android:id="@+id/action_allBlogsScreen_to_viewBlogScreen"
+            app:destination="@id/viewBlogScreen" />
+        <action
+            android:id="@+id/action_allBlogsScreen_to_bookMarks"
+            app:destination="@id/bookMarks" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewBlogScreen"
+        android:name="io.github.junrdev.recycler.features.blog.ViewBlogScreen"
+        android:label="fragment_view_blog_screen"
+        tools:layout="@layout/fragment_view_blog_screen" />
+    <fragment
+        android:id="@+id/bookMarks"
+        android:name="io.github.junrdev.recycler.features.blog.BookMarks"
+        android:label="fragment_book_marks"
+        tools:layout="@layout/fragment_book_marks" >
+        <action
+            android:id="@+id/action_bookMarks_to_viewBlogScreen"
+            app:destination="@id/viewBlogScreen" />
+    </fragment>
+</navigation>
