@@ -3,7 +3,6 @@ package io.github.junrdev.recycler.domain.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.android.material.bottomsheet.BottomSheetBehavior.StableState
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 import java.util.UUID
@@ -11,7 +10,7 @@ import java.util.UUID
 
 @Entity
 @Parcelize
-data class BlogPostItem(
+open class BlogPostItem(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val title: String = "",
     val topic: String = "",
@@ -20,3 +19,4 @@ data class BlogPostItem(
     val author: String = "",
     val datePublished: String = LocalDateTime.now().toString(),
 ) : Parcelable
+
