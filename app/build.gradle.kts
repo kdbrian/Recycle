@@ -65,5 +65,7 @@ dependencies {
     implementation(libs.glide)
 
 
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
 }
