@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import io.github.junrdev.recycler.databinding.FragmentViewBlogScreenBinding
 import io.github.junrdev.recycler.domain.model.BlogPostItem
@@ -28,10 +29,17 @@ class ViewBlogScreen : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
 
-            arguments?.getSerializable("blog")
+            imageView3.setOnClickListener {
+                findNavController().popBackStack()
+            }
 
-            Glide.with(requireContext())
-                .load()
+            arguments?.getParcelable<BlogPostItem>("blog")?.let { blogpost ->
+                blog = blogpost
+                Glide.with(requireContext())
+                    .load(blogpost.imageLink)
+//                    .centerCrop()
+                    .into(imageView10)
+            }
 
         }
     }

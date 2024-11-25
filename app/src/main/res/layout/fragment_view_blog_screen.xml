@@ -35,27 +35,42 @@
                 tools:src="@tools:sample/backgrounds/scenic" />
         </LinearLayout>
 
-
-        <ImageView
-            android:id="@+id/imageView3"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="35dp"
-            android:layout_weight="0"
-            android:src="@drawable/round_arrow_back_24"
+            android:background="@drawable/circle_shape"
+            android:backgroundTint="@color/metallicWasteColor"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:src="@drawable/round_arrow_back_24" />
+        </LinearLayout>
 
 
-        <ImageView
-            android:id="@+id/imageView4"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="35dp"
-            android:layout_weight="1"
-            android:src="@drawable/round_bookmark_border_24"
+            android:background="@drawable/circle_shape"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/round_bookmark_border_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView21"
