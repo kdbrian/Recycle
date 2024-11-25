@@ -56,12 +56,19 @@
         <action
             android:id="@+id/action_homeScreen_to_viewBlogScreen"
             app:destination="@id/viewBlogScreen" />
+        <action
+            android:id="@+id/action_homeScreen_to_fillOutWasteInfo"
+            app:destination="@id/fillOutWasteInfo" />
     </fragment>
     <fragment
         android:id="@+id/scanScreen"
         android:name="io.github.junrdev.recycler.features.recycle.ScanScreen"
         android:label="fragment_scan_screen"
-        tools:layout="@layout/fragment_scan_screen" />
+        tools:layout="@layout/fragment_scan_screen" >
+        <action
+            android:id="@+id/action_scanScreen_to_fillOutWasteInfo"
+            app:destination="@id/fillOutWasteInfo" />
+    </fragment>
     <fragment
         android:id="@+id/allBlogsScreen"
         android:name="io.github.junrdev.recycler.features.blog.AllBlogsScreen"
@@ -93,4 +100,9 @@
             android:id="@+id/action_bookMarks_to_viewBlogScreen"
             app:destination="@id/viewBlogScreen" />
     </fragment>
+    <fragment
+        android:id="@+id/fillOutWasteInfo"
+        android:name="io.github.junrdev.recycler.features.recycle.FillOutWasteInfo"
+        android:label="fragment_fill_out_waste_info"
+        tools:layout="@layout/fragment_fill_out_waste_info" />
 </navigation>

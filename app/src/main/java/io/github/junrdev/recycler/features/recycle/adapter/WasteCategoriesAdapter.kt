@@ -11,7 +11,8 @@ import io.github.junrdev.recycler.domain.model.WasteCategory
 
 class WasteCategoriesAdapter(
     private val context: Context,
-    private val wasteCategories: List<WasteCategory>
+    private val wasteCategories: List<WasteCategory>,
+    val onclick : (WasteCategory) -> Unit
 )  : RecyclerView.Adapter<WasteCategoriesAdapter.VH>(){
 
     inner class VH(private val binding : WasteMaterialItemBinding): RecyclerView.ViewHolder(binding.root){
@@ -31,6 +32,10 @@ class WasteCategoriesAdapter(
                     Glide.with(context)
                         .load(it)
                         .into(imageView19)
+                }
+
+                root.setOnClickListener {
+                    onclick(x)
                 }
 
             }
