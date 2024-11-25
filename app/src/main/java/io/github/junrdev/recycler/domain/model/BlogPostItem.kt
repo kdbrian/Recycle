@@ -1,14 +1,18 @@
 package io.github.junrdev.recycler.domain.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.android.material.bottomsheet.BottomSheetBehavior.StableState
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 import java.util.UUID
 
+
+@Entity
 @Parcelize
 data class BlogPostItem(
-    val id: String = UUID.randomUUID().toString(),
+    @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val title: String = "",
     val topic: String = "",
     val content: String = "",

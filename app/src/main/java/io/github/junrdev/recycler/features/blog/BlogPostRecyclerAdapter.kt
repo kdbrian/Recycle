@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import io.github.junrdev.recycler.R
-import io.github.junrdev.recycler.dala.local.DemoDataRepo
+ import io.github.junrdev.recycler.data.local.DemoDataRepo
 import io.github.junrdev.recycler.databinding.BlogpostItemBinding
 import io.github.junrdev.recycler.databinding.HorizontalBlogpostItemBinding
 import io.github.junrdev.recycler.domain.model.BlogPostItem
