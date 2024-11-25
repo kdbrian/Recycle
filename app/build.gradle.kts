@@ -6,6 +6,7 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     alias(libs.plugins.google.gms.google.services)
+    kotlin("plugin.serialization") version "2.0.20"
 
 }
 
