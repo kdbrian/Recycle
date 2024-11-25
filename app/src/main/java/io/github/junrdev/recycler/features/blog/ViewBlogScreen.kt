@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import io.github.junrdev.recycler.databinding.FragmentViewBlogScreenBinding
+import io.github.junrdev.recycler.domain.model.BlogPostItem
 
 
 class ViewBlogScreen : Fragment(){
@@ -25,6 +27,11 @@ class ViewBlogScreen : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
+
+            arguments?.getSerializable("blog")
+
+            Glide.with(requireContext())
+                .load()
 
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.github.junrdev.recycler.R
@@ -43,7 +44,9 @@ class AllBlogsScreen : Fragment() {
             blogList.adapter = BlogPostRecyclerAdapter(
                 context = requireContext(),
                 layout = R.layout.horizontal_blogpost_item
-            )
+            ){
+                findNavController().navigate(R.id.action_allBlogsScreen_to_viewBlogScreen, bundleOf("blog" to  it))
+            }
 
         }
     }

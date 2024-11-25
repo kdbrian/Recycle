@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_homeScreen_to_allBlogsScreen"
             app:destination="@id/allBlogsScreen" />
+        <action
+            android:id="@+id/action_homeScreen_to_viewBlogScreen"
+            app:destination="@id/viewBlogScreen" />
     </fragment>
     <fragment
         android:id="@+id/scanScreen"
@@ -68,11 +71,16 @@
             android:id="@+id/action_allBlogsScreen_to_bookMarks"
             app:destination="@id/bookMarks" />
     </fragment>
+
     <fragment
         android:id="@+id/viewBlogScreen"
         android:name="io.github.junrdev.recycler.features.blog.ViewBlogScreen"
         android:label="fragment_view_blog_screen"
-        tools:layout="@layout/fragment_view_blog_screen" />
+        tools:layout="@layout/fragment_view_blog_screen">
+        <argument
+            android:name="blog"
+            app:argType="io.github.junrdev.recycler.domain.model.BlogPostItem" />
+    </fragment>
     <fragment
         android:id="@+id/bookMarks"
         android:name="io.github.junrdev.recycler.features.blog.BookMarks"

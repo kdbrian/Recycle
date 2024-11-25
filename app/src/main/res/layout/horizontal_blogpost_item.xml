@@ -5,8 +5,6 @@
 
 
     <data>
-
-
         <variable
             name="blog"
             type="io.github.junrdev.recycler.domain.model.BlogPostItem" />
@@ -63,8 +61,9 @@
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
+                        tools:text="TextView"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text='@{blog.author}'
                         />
 
                 </LinearLayout>
@@ -91,15 +90,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="5dp"
-                android:text="TextView"
-                tools:text="@tools:sample/full_names" />
 
 
         </RelativeLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.github.junrdev.recycler.R
@@ -31,7 +32,9 @@ class HomeSummary : Fragment() {
             homeBlogsPreview.adapter = BlogPostRecyclerAdapter(
                 context = requireContext(),
                 layout = R.layout.blogpost_item
-            )
+            ){
+                findNavController().navigate(R.id.action_homeScreen_to_viewBlogScreen, bundleOf("blog" to  it))
+            }
 
             textView19.setOnClickListener {
                 findNavController()

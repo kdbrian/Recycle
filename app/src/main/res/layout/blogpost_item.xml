@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <data>
+        <variable
+            name="blog"
+            type="io.github.junrdev.recycler.domain.model.BlogPostItem" />
+
+    </data>
+
+
     <LinearLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -23,12 +32,16 @@
             android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text='@{blog.title}'
+            tools:text="TextView"
+            />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text='@{blog.author}'
+            tools:text="TextView"
+            />
     </LinearLayout>
 </layout>
