@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.github.junrdev.recycler.R
 import io.github.junrdev.recycler.databinding.FragmentRecycleOverviewBinding
+import io.github.junrdev.recycler.domain.model.WasteCategory
+import io.github.junrdev.recycler.features.recycle.adapter.WasteCategoriesAdapter
 
 
 class RecycleOverview : Fragment() {
@@ -34,6 +36,12 @@ class RecycleOverview : Fragment() {
                 findNavController()
                     .navigate(R.id.action_homeScreen_to_scanScreen)
             }
+
+
+            wasteCategories.adapter = WasteCategoriesAdapter(
+                context = requireContext(),
+                wasteCategories = WasteCategory.getCategories()
+            )
 
         }
     }

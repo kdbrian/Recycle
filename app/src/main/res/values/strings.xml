@@ -2,4 +2,13 @@
     <string name="app_name">Views-App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="quantityType">
+        <item>-- select --</item>
+        <item>Pieces</item>
+        <item>Grams</item>
+        <item>Kilograms</item>
+    </string-array>
+
+
 </resources>
