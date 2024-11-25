@@ -7,7 +7,6 @@ plugins {
     id("kotlin-parcelize")
     alias(libs.plugins.google.gms.google.services)
 
-
 }
 
 android {
@@ -74,5 +73,8 @@ dependencies {
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+
+    //serializer
+    implementation(libs.kotlinx.serialization.json)
 
 }
