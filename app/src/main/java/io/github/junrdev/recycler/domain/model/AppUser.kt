@@ -1,5 +1,8 @@
 package io.github.junrdev.recycler.domain.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AppUser(
     val userId: String = "",
     val email: String? = null,

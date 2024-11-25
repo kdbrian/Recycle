@@ -1,15 +1,28 @@
 package io.github.junrdev.recycler.features.auth.login_register
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import io.github.junrdev.recycler.R
 import io.github.junrdev.recycler.databinding.FragmentEmailLoginRegisterBinding
+import io.github.junrdev.recycler.ui.presentation.viewmodel.AuthScreenViewModel
+import io.github.junrdev.recycler.util.Constants
+import io.github.junrdev.recycler.util.toast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EmailLoginRegister : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentEmailLoginRegisterBinding
+    private val authScreenViewModel by viewModel<AuthScreenViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +40,40 @@ class EmailLoginRegister : BottomSheetDialogFragment() {
             if (checkFields()) {
                 val emailStr = email.text.toString()
                 val passwordStr = password.text.toString()
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (!authScreenViewModel.checkUserWithEmail(emailStr)) {
+
+                        val result =
+                            authScreenViewModel.signUpWithEmailAndPassword(emailStr, passwordStr)
+
+                        requireContext().run {
+                            result.onSuccess {
+                                toast("Login success.")
+
+                                //save info to cache
+                                val userInfo = Json.encodeToString(it)
+
+                                getSharedPreferences(Constants.appPrefs, Context.MODE_PRIVATE)
+                                    .edit().putString(Constants.userInfo, userInfo)
+                                    .apply()
+
+                                dismiss()
+                                findNavController().navigate(R.id.action_promptAuthScreen_to_homeScreen)
+                            }
+
+                            result.onFailure {
+                                toast(it.message.toString())
+                            }
+
+                        }
+
+                    } else {
+                        //login
+
+
+                    }
+                }
             }
         }
     }

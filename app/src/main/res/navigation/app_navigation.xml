@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_onBoardingScreen_to_promptAuthScreen"
             app:destination="@id/promptAuthScreen" />
+        <action
+            android:id="@+id/action_onBoardingScreen_to_homeScreen"
+            app:destination="@id/homeScreen" />
     </fragment>
     <fragment
         android:id="@+id/promptAuthScreen"

@@ -5,5 +5,7 @@ object Constants {
     const val usersCollection = "recycler-users-v1"
     const val wasteMetadataCollection = "recycler-waste-v1"
     const val blogsCollection = "recycler-blogs-v1"
+    const val appPrefs = "appsettings"
+    const val userInfo = "user"
 
 }

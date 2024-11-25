@@ -62,9 +62,8 @@ class FirebaseUserRepoImpl : FirebaseUserRepo {
         }
     }
 
-    override suspend fun registerUserWithEmail(email: String, password: String): Result<String> {
+    override suspend fun registerUserWithEmail(email: String, password: String): Result<AppUser> {
         return try {
-
             val registerResult = auth.createUserWithEmailAndPassword(email, password)
                 .await()
 
@@ -75,29 +74,26 @@ class FirebaseUserRepoImpl : FirebaseUserRepo {
 
                 val userRef = usersCollection.document(userId)
 
-                userRef.set(
-                    AppUser(
-                        email = email,
-                        userId = userId,
-                        recyclerId = recyclerId.id,
-                        registrationMode = REGISTRATION_MODE.EMAIL_PASSWORD
-                    )
-                ).await()
+                val user = AppUser(
+                    email = email,
+                    userId = userId,
+                    recyclerId = recyclerId.id,
+                    registrationMode = REGISTRATION_MODE.EMAIL_PASSWORD
+                )
 
-                //logout account
-                auth.signOut()
+                userRef.set(user).await()
 
-                Result.success("Created account successfuly.Proceed to login")
+                Result.success(user)
 
             } else
-                Result.success("Failed to create account, try again.")
+                Result.failure(Exception("Failed to create account, try again."))
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
 
-    override suspend fun registerUserWithPhoneNumber(phone: String): Result<String> {
-        return Result.success("Am a Tea pos")
+    override suspend fun registerUserWithPhoneNumber(phone: String): Result<AppUser> {
+        return Result.failure(Exception("Am a Tea pos"))
     }
 
     override suspend fun logoutUser(): Result<String> {
