@@ -8,6 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.github.junrdev.recycler.databinding.FragmentEmailLoginRegisterBinding
 
 class EmailLoginRegister : BottomSheetDialogFragment() {
+
     private lateinit var binding: FragmentEmailLoginRegisterBinding
 
     override fun onCreateView(
@@ -23,7 +24,15 @@ class EmailLoginRegister : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
 
+            if (checkFields()) {
+                val emailStr = email.text.toString()
+                val passwordStr = password.text.toString()
+            }
         }
+    }
+
+    private fun FragmentEmailLoginRegisterBinding.checkFields(): Boolean {
+        return !(email.text.toString().isEmpty() || password.text.toString().isEmpty())
     }
 
     companion object {
