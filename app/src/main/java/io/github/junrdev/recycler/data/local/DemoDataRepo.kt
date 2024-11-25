@@ -1,4 +1,4 @@
-package io.github.junrdev.recycler.dala.local
+package io.github.junrdev.recycler.data.local
 
 
 import io.github.junrdev.recycler.domain.model.BlogPostItem
