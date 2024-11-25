@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.junrdev.recycler.domain.model.AppUser
 import io.github.junrdev.recycler.domain.remote.FirebaseUserRepo
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AuthScreenViewModel(
@@ -12,17 +11,8 @@ class AuthScreenViewModel(
 ) : ViewModel() {
 
 
-    suspend fun signInWithEmailAndPassword(email: String, password: String): String {
-        val result = viewModelScope.async {
-            firebaseUserRepo.loginUserWithEmailAndPassword(email, password)
-        }.await()
-
-        return if (result.isSuccess) {
-            result.getOrNull().toString()
-        } else {
-            println("failed login : " + result.exceptionOrNull()?.message)
-            result.exceptionOrNull()?.message.toString()
-        }
+    suspend fun signInWithEmailAndPassword(email: String, password: String): Result<AppUser> {
+        return firebaseUserRepo.loginUserWithEmailAndPassword(email, password)
     }
 
     suspend fun signUpWithEmailAndPassword(email: String, password: String): Result<AppUser> {

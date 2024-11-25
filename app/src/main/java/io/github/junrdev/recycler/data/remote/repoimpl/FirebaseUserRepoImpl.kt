@@ -20,14 +20,24 @@ class FirebaseUserRepoImpl : FirebaseUserRepo {
     override suspend fun loginUserWithEmailAndPassword(
         email: String,
         password: String
-    ): Result<String> {
+    ): Result<AppUser> {
 
         return try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
-            if (result.user != null)
-                Result.success("Login Succee")
-            else
-                Result.success("Something unexpected happened.")
+            if (result.user != null) {
+                val userId = result.user?.uid
+
+                val doc = usersCollection.document(userId.toString())
+                    .get()
+                    .await()
+
+                if (doc != null) {
+                    val user = doc.toObject(AppUser::class.java)
+                    Result.success(user!!)
+                } else
+                    Result.failure(Exception("Failed to fetch account."))
+            } else
+                Result.failure(Exception("Failed to fetch account."))
         } catch (e: Exception) {
             Result.failure(e)
         }

@@ -4,7 +4,7 @@ import io.github.junrdev.recycler.domain.model.AppUser
 
 interface FirebaseUserRepo {
 
-    suspend fun loginUserWithEmailAndPassword(email : String, password : String) : Result<String>
+    suspend fun loginUserWithEmailAndPassword(email : String, password : String) : Result<AppUser>
 
     suspend fun loginUserWithPhoneNumber(phone : String) : Result<String>
 

@@ -70,8 +70,27 @@ class EmailLoginRegister : BottomSheetDialogFragment() {
 
                     } else {
                         //login
+                        val result = authScreenViewModel.signInWithEmailAndPassword(emailStr, passwordStr)
+                        requireContext().run {
 
+                            result.onSuccess{
 
+                                val userInfo = Json.encodeToString(it)
+
+                                getSharedPreferences(Constants.appPrefs, Context.MODE_PRIVATE)
+                                    .edit().putString(Constants.userInfo, userInfo)
+                                    .apply()
+
+                                dismiss()
+                                findNavController().navigate(R.id.action_promptAuthScreen_to_homeScreen)
+
+                            }
+
+                            result.onFailure {
+                                toast(it.message.toString())
+                            }
+
+                        }
                     }
                 }
             }
