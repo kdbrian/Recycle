@@ -37,59 +37,65 @@ class EmailLoginRegister : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
 
-            if (checkFields()) {
-                val emailStr = email.text.toString()
-                val passwordStr = password.text.toString()
+            button.setOnClickListener {
+                if (checkFields()) {
+                    val emailStr = email.text.toString()
+                    val passwordStr = password.text.toString()
 
-                CoroutineScope(Dispatchers.Main).launch {
-                    if (!authScreenViewModel.checkUserWithEmail(emailStr)) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        println(
+                            "found : ${authScreenViewModel.checkUserWithEmail(emailStr)}"
+                        )
+                        if (!authScreenViewModel.checkUserWithEmail(emailStr)) {
 
-                        val result =
-                            authScreenViewModel.signUpWithEmailAndPassword(emailStr, passwordStr)
+                            val result =
+                                authScreenViewModel.signUpWithEmailAndPassword(emailStr, passwordStr)
 
-                        requireContext().run {
-                            result.onSuccess {
-                                toast("Login success.")
+                            requireContext().run {
+                                result.onSuccess {
+                                    toast("Login success.")
 
-                                //save info to cache
-                                val userInfo = Json.encodeToString(it)
+                                    //save info to cache
+                                    val userInfo = Json.encodeToString(it)
 
-                                getSharedPreferences(Constants.appPrefs, Context.MODE_PRIVATE)
-                                    .edit().putString(Constants.userInfo, userInfo)
-                                    .apply()
+                                    getSharedPreferences(Constants.appPrefs, Context.MODE_PRIVATE)
+                                        .edit().putString(Constants.userInfo, userInfo)
+                                        .apply()
 
-                                dismiss()
-                                findNavController().navigate(R.id.action_promptAuthScreen_to_homeScreen)
-                            }
+                                    dismiss()
+                                    findNavController().navigate(R.id.action_promptAuthScreen_to_homeScreen)
+                                }
 
-                            result.onFailure {
-                                toast(it.message.toString())
-                            }
-
-                        }
-
-                    } else {
-                        //login
-                        val result = authScreenViewModel.signInWithEmailAndPassword(emailStr, passwordStr)
-                        requireContext().run {
-
-                            result.onSuccess{
-
-                                val userInfo = Json.encodeToString(it)
-
-                                getSharedPreferences(Constants.appPrefs, Context.MODE_PRIVATE)
-                                    .edit().putString(Constants.userInfo, userInfo)
-                                    .apply()
-
-                                dismiss()
-                                findNavController().navigate(R.id.action_promptAuthScreen_to_homeScreen)
+                                result.onFailure {
+                                    authScreenViewModel.logoutUser()
+                                    toast(it.message.toString())
+                                }
 
                             }
 
-                            result.onFailure {
-                                toast(it.message.toString())
-                            }
+                        } else {
+                            //login
+                            val result = authScreenViewModel.signInWithEmailAndPassword(emailStr, passwordStr)
+                            requireContext().run {
 
+                                result.onSuccess{
+
+                                    val userInfo = Json.encodeToString(it)
+
+                                    getSharedPreferences(Constants.appPrefs, Context.MODE_PRIVATE)
+                                        .edit().putString(Constants.userInfo, userInfo)
+                                        .apply()
+
+                                    dismiss()
+                                    findNavController().navigate(R.id.action_promptAuthScreen_to_homeScreen)
+
+                                }
+
+                                result.onFailure {
+                                    toast(it.message.toString())
+                                }
+
+                            }
                         }
                     }
                 }

@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import io.github.junrdev.recycler.R
 import io.github.junrdev.recycler.databinding.FragmentHomeScreenBinding
 import io.github.junrdev.recycler.features.home.adapter.HomePagerAdapter
@@ -14,12 +16,22 @@ import io.github.junrdev.recycler.features.home.adapter.HomePagerAdapter
 class HomeScreen : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
+    private lateinit var backDispatcher: OnBackPressedCallback
+    private val auth = Firebase.auth
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        backDispatcher = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (auth.currentUser != null)
+                    requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backDispatcher)
+
         return FragmentHomeScreenBinding.inflate(inflater, container, false)
             .also {
                 binding = it
