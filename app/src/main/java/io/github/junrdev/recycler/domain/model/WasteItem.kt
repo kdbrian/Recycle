@@ -6,15 +6,10 @@ import kotlinx.serialization.Serializable
 data class WasteItem(
     val id: String = "",
     val recyclerId: String = "",
-    val category: String = "",
-    val quantity: Double = 0.0,
-    val quantityUnit: String = "",
-    val contents: String = "",
+    val wasteData: WasteData
 )
 
 data class WasteDto(
     val category: String = "",
-    val quantity: Double = 0.0,
-    val quantityUnit: String = "",
-    val contents: String = "",
+    val wasteData: WasteData,
 )
