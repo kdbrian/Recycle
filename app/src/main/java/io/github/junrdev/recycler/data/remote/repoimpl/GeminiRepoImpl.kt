@@ -9,16 +9,20 @@ class GeminiRepoImpl(
     private val generativeModel: GenerativeModel
 ) : GeminiRepo {
 
-    override suspend fun generateFromTextOnly(prompt: String): String {
+    override suspend fun generateFromTextOnly(prompt: String): Result<String> {
         return try {
             val response = generativeModel.generateContent(prompt).text
-            response ?: "Something unexpected happened"
+            response?.let {
+                Result.success(response)
+            } ?: Result.failure(Exception("Failed due to $response"))
         } catch (e: Exception) {
             "Failed due to ${e.message}"
+            Result.failure(e)
         }
     }
 
-    override suspend fun generateFromTextAndImage(prompt: String, image: Bitmap): String {
+    override suspend fun generateFromTextAndImage(prompt: String, image: Bitmap): Result<String> {
+
         return try {
             val response = generativeModel.generateContent(
                 content {
@@ -27,9 +31,13 @@ class GeminiRepoImpl(
                 }
             ).text
 
-            response ?: "Something unexpected happened"
+            response?.let {
+                Result.success(response)
+            } ?: Result.failure(Exception("Failed due to $response"))
         } catch (e: Exception) {
             "Failed due to ${e.message}"
+            Result.failure(e)
         }
+
     }
 }

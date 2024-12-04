@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ImageCapture
@@ -15,7 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import io.github.junrdev.recycler.databinding.FragmentScanScreenBinding
+import io.github.junrdev.recycler.ui.presentation.viewmodel.ScanScreenViewModel
+import io.github.junrdev.recycler.util.getBitmapFromUri
 import io.github.junrdev.recycler.util.toast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -23,7 +30,6 @@ import java.util.concurrent.Executors
 class ScanScreen : Fragment() {
 
     private lateinit var binding: FragmentScanScreenBinding
-
     private val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             // Handle Permission granted/rejected
@@ -38,7 +44,6 @@ class ScanScreen : Fragment() {
 //                startCamera()
             }
         }
-
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
 
@@ -50,6 +55,8 @@ class ScanScreen : Fragment() {
                 pickedPhotoUri = it
             }
         }
+
+    private val scanScreenViewModel by viewModel<ScanScreenViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,11 +85,37 @@ class ScanScreen : Fragment() {
                 findNavController().popBackStack()
             }
 
+            button6.setOnClickListener {
+                if (pickedPhotoUri != null && pickedPhotoUri != Uri.EMPTY) {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        requireContext().getBitmapFromUri(pickedPhotoUri!!)?.let { bitmap ->
+
+                            val feedback = scanScreenViewModel.generateContentFromImage(bitmap)
+                            textView11.text =
+                                "Major : ${feedback?.majorContent}\n" +
+                                        "Quantity : ${feedback?.quantity}\n" +
+                                        "Other : ${feedback?.contents}"
+
+                        } ?: run {
+                            Toast.makeText(
+                                requireContext(),
+                                "Failed to decode image",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Missing image, select from file.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+
             button5.setOnClickListener {
-
                 pickPhotoLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-//                    }
-
             }
 
         }
