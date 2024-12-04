@@ -9,23 +9,33 @@
 
     <!--    TODO: INSERT CAMERA PREVIEW TO CAPTURE WHOLE BACKGROUND-->
 
-    <ImageView
-        android:id="@+id/imageView5"
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0"
-        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/pickedPhoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@tools:sample/backgrounds/scenic[3]" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="12dp"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,14 +67,32 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:background="@drawable/outline_background"
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="12dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Select photo from files" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button5"
+            android:layout_centerInParent="true"
+            android:text="Capture photo" />
+
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -102,11 +130,12 @@
                 android:text="TextView"
                 android:textSize="16sp" />
 
+
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/button6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save" />
+                android:text="Analyze and Save" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

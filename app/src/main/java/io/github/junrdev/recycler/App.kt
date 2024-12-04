@@ -1,7 +1,9 @@
 package io.github.junrdev.recycler
 
 import android.app.Application
+import io.github.junrdev.recycler.ui.presentation.di.coreModules
 import io.github.junrdev.recycler.ui.presentation.di.firebaseAuthModules
+import io.github.junrdev.recycler.ui.presentation.di.generativeAiModule
 import io.github.junrdev.recycler.ui.presentation.di.localModules
 import io.github.junrdev.recycler.ui.presentation.di.wasteModules
 import org.koin.android.ext.koin.androidContext
@@ -15,9 +17,11 @@ class App : Application() {
             androidContext(this@App)
 
             modules(
+                coreModules,
                 localModules,
                 firebaseAuthModules,
-                wasteModules
+                wasteModules,
+                generativeAiModule
             )
         }
     }
