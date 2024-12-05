@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import io.github.junrdev.recycler.R
 import io.github.junrdev.recycler.databinding.FragmentFillOutWasteInfoBinding
 import io.github.junrdev.recycler.domain.model.AppUser
+import io.github.junrdev.recycler.domain.model.WasteData
 import io.github.junrdev.recycler.domain.model.WasteDto
 import io.github.junrdev.recycler.ui.presentation.viewmodel.WasteInfoViewModel
 import io.github.junrdev.recycler.util.Constants
@@ -52,30 +53,16 @@ class FillOutWasteInfo : Fragment() {
 
             }
 
-            quantitySpinner.adapter = ArrayAdapter.createFromResource(
-                requireContext(),
-                R.array.quantityType,
-                android.R.layout.simple_spinner_item
-            )
-
-            quantitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    quantityType = p0?.getItemAtPosition(p2).toString()
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                }
-            }
-
-
-
             button6.setOnClickListener {
                 if (checkFields()) {
+
                     val wasteItem = WasteDto(
-                        quantityUnit = quantityType,
-                        quantity = editTextText2.text.toString().toDouble(),
                         category = editTextText.text.toString(),
-                        contents = editTextTextMultiLine.text.toString()
+                        wasteData = WasteData(
+                            quantity = editTextText2.text.toString(),
+                            contents = listOf(editTextTextMultiLine.text.toString()),
+                            majorContent = editTextText.text.toString(),
+                        )
                     )
 
                     CoroutineScope(Dispatchers.Main).launch {

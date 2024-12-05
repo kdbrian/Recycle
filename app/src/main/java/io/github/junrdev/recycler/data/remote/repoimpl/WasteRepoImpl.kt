@@ -18,10 +18,7 @@ class WasteRepoImpl : WasteRepo {
             val waste = WasteItem(
                 recyclerId = appUserId,
                 id = docRef.id,
-                contents = wasteItem.contents,
-                category = wasteItem.category,
-                quantity = wasteItem.quantity,
-                quantityUnit = wasteItem.quantityUnit
+                wasteData = wasteItem.wasteData
             )
             docRef.set(waste).await()
             Result.success(waste)

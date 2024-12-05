@@ -1,17 +1,24 @@
 package io.github.junrdev.recycler.features.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import io.github.junrdev.recycler.R
 import io.github.junrdev.recycler.databinding.FragmentHomeScreenBinding
+import io.github.junrdev.recycler.domain.model.AppUser
+import io.github.junrdev.recycler.features.blog.BlogPostRecyclerAdapter
 import io.github.junrdev.recycler.features.home.adapter.HomePagerAdapter
+import io.github.junrdev.recycler.util.Constants
+import kotlinx.serialization.json.Json
 
 class HomeScreen : Fragment() {
 
@@ -41,32 +48,23 @@ class HomeScreen : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.apply {
 
-            viewPager22.adapter = HomePagerAdapter(requireNotNull(activity))
+            val info = requireContext().getSharedPreferences(Constants.appPrefs, Context.MODE_PRIVATE)
+                .getString(Constants.userInfo, null)
+            info?.let {
+                val userInfo = Json.decodeFromString<AppUser>(it)
+                user = userInfo
+            }
 
-            viewPager22.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    bottomNavigationBar.menu.getItem(position).isChecked = true
-                }
-            })
+            homeBlogsPreview.adapter = BlogPostRecyclerAdapter(
+                context = requireContext(),
+                layout = R.layout.blogpost_item
+            ){
+                findNavController().navigate(R.id.action_homeScreen_to_viewBlogScreen, bundleOf("blog" to  it))
+            }
 
-
-            bottomNavigationBar.setOnItemSelectedListener {
-                when (it.itemId) {
-
-                    R.id.home -> {
-                        viewPager22.setCurrentItem(0, true)
-                        true
-                    }
-
-                    R.id.recycle -> {
-                        viewPager22.setCurrentItem(1, true)
-                        true
-                    }
-
-                    else -> false
-                }
-
+            textView19.setOnClickListener {
+                findNavController()
+                    .navigate(R.id.action_homeScreen_to_allBlogsScreen)
             }
 
         }
